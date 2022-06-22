@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, session
 from flask_mail import Mail, Message
+import os
 
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
 # os.environ.get("MY_EMAIL")
@@ -113,4 +114,4 @@ def ok():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
