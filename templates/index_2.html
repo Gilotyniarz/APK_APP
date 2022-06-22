@@ -1,0 +1,37 @@
+</br>
+
+{% include "header.html" %}
+<form action="#" method="post">
+
+
+    {% if pojazd == 1 %}
+    {% include "parts/pojazd.html" %}
+    {% endif %}
+
+    {% if dom == 1 %}
+    {% include "parts/dom.html" %}
+    {% endif %}
+
+    {% if podroz == 1 %}
+    {% include "parts/podroz.html" %}
+    {% endif %}
+
+    {% if zycie == 1 %}
+    {% include "parts/zycie.html" %}
+    {% endif %}
+
+    {% if rolne == 1 %}
+    {% include "parts/rolne.html" %}
+    {% endif %}
+
+    {% if firma == 1 %}
+    {% include "parts/firma.html" %}
+    {% endif %}
+
+
+
+
+    {% include "submit/contact.html" %}
+</form>
+    {% include "footer.html" %}
+
