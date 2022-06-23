@@ -1,27 +1,17 @@
 from flask import Flask, render_template, request, url_for, redirect, session
 from flask_mail import Mail, Message
+import os
 
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
-# os.environ.get("MY_EMAIL")
-MY_EMAIL = "konradlepek16000@gmail.com"
-MY_PASSWORD = "konradaccounts160"
-SEND_TO = "konradlepek160@gmail.com"
-LESS_SECURE_APPS = "vxfvvleumqmxndmv"
-SECRET_KEY = "vxfvvleumqmxndmv"
-# MY_EMAIL = os.environ.get("MY_EMAIL")
-# MY_PASSWORD = os.environ.get("MY_PASSWORD")
-# SEND_TO = os.environ.get("SEND_TO")
-# LESS_SECURE_APPS = os.environ.get("LESS_SECURE_APPS")
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-
+MY_EMAIL = os.environ.get("MY_EMAIL")
+MY_PASSWORD = os.environ.get("MY_PASSWORD")
+LESS_SECURE_APPS = os.environ.get("LESS_SECURE_APPS")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 # @@@@@@@@@@@@@@@@@ CONFIG @@@@@@@@@@@@@@@@@@@@@@
 app = Flask(__name__)
-
 # @@@@@@@@@@@@@@@@@@@@@@ Session @@@@@@@@@@@@@@@@@@@@@
 app.secret_key = SECRET_KEY
-
 # @@@@@@@@@@@@@@@@@@@@@@@@@@ MAIL @@@@@@@@@@@@@@@@@@@@@@@@
-
 app.config.update(dict(
     DEBUG=True,
     MAIL_SERVER='smtp.gmail.com',
