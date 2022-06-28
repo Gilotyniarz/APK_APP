@@ -72,6 +72,8 @@ def form(pojazd, dom, podroz, zycie, rolne, firma):
         string_submit = ",".join(list_submit_only_insurance)
         session["insurance"] = string_submit
 
+
+
         return redirect(url_for("full"))
     return render_template("index_2.html", pojazd=pojazd, dom=dom, podroz=podroz, zycie=zycie, rolne=rolne, firma=firma)
 
@@ -84,11 +86,13 @@ def full():
     else:
         session["agent"] = "konradlepek@wp.pl"
 
+    products = session["insurance"].split(",")[::2]  # converting session str to list
+
+
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='sender of the email',
+    msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
                   recipients=[session.get("agent")])
-    # msg.body = f"Wyniki apk: \n {session.get('insurance') } \n Komentarz: {session['form_message']} "
-    msg.html = render_template("messages/message.html")
+    msg.html = render_template("messages/message.html", products=products)
     mail.send(msg)
     return render_template("index_4_win.html")
 
