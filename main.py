@@ -84,7 +84,7 @@ def full():
     if "agent" in session:
         pass
     else:
-        session["agent"] = "konradlepek@wp.pl"
+        session["agent"] = MY_EMAIL
 
     products = session["insurance"].split(",")[::2]  # converting session str to list
 
