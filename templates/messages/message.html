@@ -112,6 +112,7 @@ img.g-img + div {
 
 
 
+
     </style>
 
     <!-- CSS Reset : END -->
@@ -451,6 +452,7 @@ table{
 
 
 
+
     </style>
 
 
@@ -509,12 +511,7 @@ table{
             <tr>
                 <td class="bg_white">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                        <tr>
-                            <td class="icon">
-                                <img src="images/003-recipe-book.png" alt=""
-                                     style="width: 60px; max-width: 600px; height: auto; margin: auto; display: block;">
-                            </td>
-                        </tr>
+
                         <tr>
                             <td class="text-services">
                                 <h3>Jest zainteresowany:</h3>
@@ -528,109 +525,102 @@ table{
                 <td class="bg_white">
                     {%for product in products%}
 
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                        <tr>
-                            <td class="icon">
-                                <img src="images/003-recipe-book.png" alt=""
-                                     style="width: 60px; max-width: 600px; height: auto; margin: auto; display: block;">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-services">
-                                <h3>Rodzaj : {{product.split("_")[1]}}</h3>
-                                <p>Kategoria : {{product.split("_")[0]}}</p>
-                            </td>
-                        </tr>
-                        <div style="height: 5px ; background-color: grey;">
 
-                        </div>
-                    </table>
-
-                    {%endfor%}
-                    <!-- 1 Column Text + Button : END -->
-                    <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
-                           style="margin: auto;">
-                        <tr>
-                            <td valign="middle" class="bg_black footer email-section">
-                                <table>
-                                    <tr>
-                                        <td valign="top" width="33.333%" style="padding-top: 20px;">
-                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0"
-                                                   width="100%">
-                                                <tr>
-                                                    <td style="text-align: left; padding-right: 10px;">
-                                                        <h3 style="color: white;" class="heading">Apk</h3>
-                                                        <p>E-mail został wysłany automatycznie przy pomocy systemu</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td valign="top" width="33.333%" style="padding-top: 20px;">
-                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0"
-                                                   width="100%">
-                                                <tr>
-                                                    <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
-                                                        <h3 style="color: white;" class="heading">Kontakt</h3>
-                                                        <ul>
-                                                            <li><span
-                                                                    class="text">Tadeusza Kościuszki 18 88-300 Mogilno </br>
-                                                                Polska</span>
-                                                            </li>
-                                                            <li><span class="text">+48 502 265 753</span></a></li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td valign="top" width="33.333%" style="padding-top: 20px;">
-                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0"
-                                                   width="100%">
-                                                <tr>
-                                                    <td style="text-align: left; padding-left: 10px;">
-                                                        <h3 style="color: white;" class="heading">Przydatne</h3>
-                                                        <ul>
-                                                            <li><a style="color: white;" href="#">Strona Główna</a></li>
-                                                            <li><a style="color: white;" href="#">Kontakt</a></li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr><!-- end: tr -->
-                        <tr>
-                            <td valign="middle" class="bg_black footer email-section">
-                                <table>
-                                    <tr>
-                                        <td valign="top" width="33.333%">
-                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0"
-                                                   width="100%">
-                                                <tr>
-                                                    <td style="text-align: left; padding-right: 10px;">
-                                                        <p style="color: white;">&copy; Insur Invest</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td valign="top" width="33.333%">
-                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0"
-                                                   width="100%">
-                                                <tr>
-                                                    <td style="text-align: right; padding-left: 5px; padding-right: 5px;">
-                                                        <p><a href="#" style="color: rgba(255,255,255,.4);"></a></p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
+            <tr>
+                <td class="text-services">
+                    <h3>Rodzaj : {{product.split("_")[1]}}</h3>
+                    <p>Kategoria : {{product.split("_")[0]}}</p>
                 </td>
+
             </tr>
+            <div style="height: 5px ; background-color: grey;">
+
+            </div>
+
+
+            {%endfor%}
+            <!-- 1 Column Text + Button : END -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                   style="margin: auto;">
+                <tr>
+                    <td valign="middle" class="bg_black footer email-section">
+                        <table>
+                            <tr>
+                                <td valign="top" width="33.333%" style="padding-top: 20px;">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+                                           width="100%">
+                                        <tr>
+                                            <td style="text-align: left; padding-right: 10px;">
+                                                <h3 style="color: white;" class="heading">Apk</h3>
+                                                <p>E-mail został wysłany automatycznie przy pomocy systemu</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td valign="top" width="33.333%" style="padding-top: 20px;">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+                                           width="100%">
+                                        <tr>
+                                            <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                                <h3 style="color: white;" class="heading">Kontakt</h3>
+                                                <ul>
+                                                    <li><span
+                                                            class="text">Tadeusza Kościuszki 18 88-300 Mogilno </br>
+                                                        Polska</span>
+                                                    </li>
+                                                    <li><span class="text">+48 502 265 753</span></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td valign="top" width="33.333%" style="padding-top: 20px;">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+                                           width="100%">
+                                        <tr>
+                                            <td style="text-align: left; padding-left: 10px;">
+                                                <h3 style="color: white;" class="heading">Przydatne</h3>
+                                                <ul>
+                                                    <li><a style="color: white;" href="#">Strona Główna</a></li>
+                                                    <li><a style="color: white;" href="#">Kontakt</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr><!-- end: tr -->
+                <tr>
+                    <td valign="middle" class="bg_black footer email-section">
+                        <table>
+                            <tr>
+                                <td valign="top" width="33.333%">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+                                           width="100%">
+                                        <tr>
+                                            <td style="text-align: left; padding-right: 10px;">
+                                                <p style="color: white;">&copy; Insur Invest</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td valign="top" width="33.333%">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+                                           width="100%">
+                                        <tr>
+                                            <td style="text-align: right; padding-left: 5px; padding-right: 5px;">
+                                                <p><a href="#" style="color: rgba(255,255,255,.4);"></a></p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </table>
     </div>
 </center>

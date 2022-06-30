@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, session, make_response
 from flask_mail import Mail, Message
 import os
-
+import pdfkit
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
@@ -53,7 +53,9 @@ def test():
 @app.route("/form/<int:pojazd><int:dom><int:zycie><int:podroz><int:rolne><int:firma>", methods=["POST", "GET"])
 def form(pojazd, dom, podroz, zycie, rolne, firma):
     if request.method == 'POST':
+
         # @@@@@@@@@@@@@@@@@@@@@@@ wyciagniecie danych do bazy danych@@@@@@@@@@@@@@@@@@@@
+
         session["form_name"] = request.form.get("name")
         session["form_lastname"] = request.form.get("lastname")
         session["form_email"] = request.form.get("email")
@@ -66,13 +68,9 @@ def form(pojazd, dom, podroz, zycie, rolne, firma):
             str_part = ",".join(part)
             list_submit.append(str_part)
         list_submit_reversed = list_submit[::-1]
-
         list_submit_only_insurance = list_submit_reversed[4:]
-
         string_submit = ",".join(list_submit_only_insurance)
         session["insurance"] = string_submit
-
-
 
         return redirect(url_for("full"))
     return render_template("index_2.html", pojazd=pojazd, dom=dom, podroz=podroz, zycie=zycie, rolne=rolne, firma=firma)
@@ -85,15 +83,20 @@ def full():
         pass
     else:
         session["agent"] = MY_EMAIL
-
     products = session["insurance"].split(",")[::2]  # converting session str to list
 
+    # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
+    rendered_pdf = render_template('messages/message_pdf.html', products=products)
+    pdf = pdfkit.from_string(rendered_pdf, False)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
-                  recipients=[session.get("agent")])
+                  recipients=[session.get("agent"), MY_EMAIL])
     msg.html = render_template("messages/message.html", products=products)
+    # @@@@@@@@@@@@@@@ Adding Attachment pdf @@@@@@@@@@@@@@@@@@@@
+    msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
     mail.send(msg)
+
     return render_template("index_4_win.html")
 
 
