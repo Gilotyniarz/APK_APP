@@ -1,5 +1,3 @@
 Flask==2.1.2
 Flask_Mail==0.9.1
 gunicorn==20.1.0
-wkhtmltopdf-pack-ng==0.12.3.0
-python-pdf==0.30.0
