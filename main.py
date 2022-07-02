@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect, session, m
 from flask_mail import Mail, Message
 import os
 import pydf
+import subprocess
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
@@ -23,6 +24,16 @@ app.config.update(dict(
 
 ))
 mail = Mail(app)
+
+if 'DYNO' in os.environ:
+    print ('loading wkhtmltopdf path on heroku')
+    WKHTMLTOPDF_CMD = subprocess.Popen(
+        ['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf-pack')], # Note we default to 'wkhtmltopdf' as the binary name
+        stdout=subprocess.PIPE).communicate()[0].strip()
+else:
+    print ('loading wkhtmltopdf path on localhost')
+    MYDIR = os.path.dirname(__file__)
+    WKHTMLTOPDF_CMD = os.path.join(MYDIR + "/static/executables/bin/", "wkhtmltopdf.exe")
 
 
 @app.route('/')
