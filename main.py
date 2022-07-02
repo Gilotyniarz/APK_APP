@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, session, make_response
 from flask_mail import Mail, Message
 import os
-import pdfkit
+# import pdfkit
 # @@@@@@@@@@@@@@@@@@ Config @@@@@@@@@@@@@@@@@@
 
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
@@ -90,14 +90,15 @@ def full():
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
 
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
-    pdf = pdfkit.from_string(rendered_pdf, False)
+
+    # pdf = pdfkit.from_string(rendered_pdf, False)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
                   recipients=[session.get("agent"), MY_EMAIL])
     msg.html = render_template("messages/message.html", products=products)
     # @@@@@@@@@@@@@@@ Adding Attachment pdf @@@@@@@@@@@@@@@@@@@@
-    msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
+    # msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
     mail.send(msg)
 
     return render_template("index_4_win.html")
