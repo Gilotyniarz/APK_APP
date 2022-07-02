@@ -2,8 +2,13 @@ from flask import Flask, render_template, request, url_for, redirect, session, m
 from flask_mail import Mail, Message
 import os
 import pdfkit
+import subprocess
+
+WKHTMLTOPDF_CMD = subprocess.Popen(
+['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], # Note we default to 'wkhtmltopdf' as the binary name
+stdout=subprocess.PIPE).communicate()[0].strip()
 # @@@@@@@@@@@@@@@@@@ Config @@@@@@@@@@@@@@@@@@
-config = pdfkit.configuration(wkhtmltopdf="./wkhtmltopdf/bin/wkhtmltopdf.exe")
+
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
@@ -88,6 +93,7 @@ def full():
     products = session["insurance"].split(",")[::2]  # converting session str to list
 
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
+    config = pdfkit.configuration(wkhtmltopdf=app.config['WKHTMLTOPDF_CMD'])
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
     pdf = pdfkit.from_string(rendered_pdf, False, configuration=config)
 
