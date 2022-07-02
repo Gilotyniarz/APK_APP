@@ -86,15 +86,16 @@ def full():
     products = session["insurance"].split(",")[::2]  # converting session str to list
 
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
-    rendered_pdf = render_template('messages/message_pdf.html', products=products)
-    pdf = pdfkit.from_string(rendered_pdf, False)
+    # rendered_pdf = render_template('messages/message_pdf.html', products=products)
+    # pdf = pdfkit.from_string(rendered_pdf, False)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
                   recipients=[session.get("agent"), MY_EMAIL])
     msg.html = render_template("messages/message.html", products=products)
     # @@@@@@@@@@@@@@@ Adding Attachment pdf @@@@@@@@@@@@@@@@@@@@
-    msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
+    # msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
+    # @@@@@@@@@@@@@@@@@ SENDING @@@@@@@@@@@@@@@@@
     mail.send(msg)
 
     return render_template("index_4_win.html")
