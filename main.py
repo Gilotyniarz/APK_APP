@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, session, make_response
 from flask_mail import Mail, Message
 import os
-import pdfkit
+import pydf
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
@@ -88,6 +88,9 @@ def full():
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
     # rendered_pdf = render_template('messages/message_pdf.html', products=products)
     # pdf = pdfkit.from_string(rendered_pdf, False)
+    pdf = pydf.generate_pdf('<h1>this is html</h1>')
+    with open('test_doc.pdf', 'wb') as f:
+        f.write(pdf)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
