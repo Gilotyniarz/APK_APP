@@ -2,11 +2,45 @@ from flask import Flask, render_template, request, url_for, redirect, session, m
 from flask_mail import Mail, Message
 import os
 import pdfkit
-import subprocess
+import sys, subprocess, platform
 
-WKHTMLTOPDF_CMD = subprocess.Popen(
-['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], # Note we default to 'wkhtmltopdf' as the binary name
-stdout=subprocess.PIPE).communicate()[0].strip()
+def _get_pdfkit_config():
+    """wkhtmltopdf lives and functions differently depending on Windows or Linux. We
+     need to support both since we develop on windows but deploy on Heroku.
+
+    Returns:
+        A pdfkit configuration
+    """
+    if platform.system() == 'Windows':
+        return pdfkit.configuration(
+            wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
+    else:
+        WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
+                                           stdout=subprocess.PIPE).communicate()[0].strip()
+        return pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+
+    def make_pdf_from_url(url, options=None):
+        """Produces a pdf from a website's url.
+        Args:
+            url (str): A valid url
+            options (dict, optional): for specifying pdf parameters like landscape
+                mode and margins
+        Returns:
+            pdf of the website
+        """
+        return pdfkit.from_url(url, False, configuration=_get_pdfkit_config(), options=options)
+
+    def make_pdf_from_raw_html(html, options=None):
+        """Produces a pdf from raw html.
+        Args:
+            html (str): Valid html
+            options (dict, optional): for specifying pdf parameters like landscape
+                mode and margins
+        Returns:
+            pdf of the supplied html
+        """
+        return pdfkit.from_string(html, False, configuration=_get_pdfkit_config(), options=options)
+
 # @@@@@@@@@@@@@@@@@@ Config @@@@@@@@@@@@@@@@@@
 
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
@@ -93,9 +127,9 @@ def full():
     products = session["insurance"].split(",")[::2]  # converting session str to list
 
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
-    config = pdfkit.configuration(wkhtmltopdf=app.config['WKHTMLTOPDF_CMD'])
+
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
-    pdf = pdfkit.from_string(rendered_pdf, False, configuration=config)
+    pdf = pdfkit.from_string(rendered_pdf, False)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
