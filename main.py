@@ -1,45 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, session, make_response
 from flask_mail import Mail, Message
 import os
-import pdfkit
-import sys, subprocess, platform
-
-def _get_pdfkit_config():
-    """wkhtmltopdf lives and functions differently depending on Windows or Linux. We
-     need to support both since we develop on windows but deploy on Heroku.
-
-    Returns:
-        A pdfkit configuration
-    """
-    if platform.system() == 'Windows':
-        return pdfkit.configuration(
-            wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'))
-    else:
-        WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
-                                           stdout=subprocess.PIPE).communicate()[0].strip()
-        return pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
-
-    def make_pdf_from_url(url, options=None):
-        """Produces a pdf from a website's url.
-        Args:
-            url (str): A valid url
-            options (dict, optional): for specifying pdf parameters like landscape
-                mode and margins
-        Returns:
-            pdf of the website
-        """
-        return pdfkit.from_url(url, False, configuration=_get_pdfkit_config(), options=options)
-
-    def make_pdf_from_raw_html(html, options=None):
-        """Produces a pdf from raw html.
-        Args:
-            html (str): Valid html
-            options (dict, optional): for specifying pdf parameters like landscape
-                mode and margins
-        Returns:
-            pdf of the supplied html
-        """
-        return pdfkit.from_string(html, False, configuration=_get_pdfkit_config(), options=options)
 
 # @@@@@@@@@@@@@@@@@@ Config @@@@@@@@@@@@@@@@@@
 
@@ -129,14 +90,14 @@ def full():
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
 
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
-    pdf = pdfkit.from_string(rendered_pdf, False)
+    # pdf = pdfkit.from_string(rendered_pdf, False)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
                   recipients=[session.get("agent"), MY_EMAIL])
     msg.html = render_template("messages/message.html", products=products)
     # @@@@@@@@@@@@@@@ Adding Attachment pdf @@@@@@@@@@@@@@@@@@@@
-    msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
+    # msg.attach(f"{session['form_name']} {session['form_lastname']}-APK", "invoice/pdf", pdf)
     mail.send(msg)
 
     return render_template("index_4_win.html")
