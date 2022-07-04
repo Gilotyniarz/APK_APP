@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, session, make_response
+from flask import Flask, render_template, request, url_for, redirect, session
 from flask_mail import Mail, Message
 import os
 import pdfkit
