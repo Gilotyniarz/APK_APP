@@ -3,7 +3,8 @@ from flask_mail import Mail, Message
 import os
 import pdfkit
 # @@@@@@@@@@@@@@@@@@ Config @@@@@@@@@@@@@@@@@@
-
+path_wkhtmltopdf = 'vendor/bundle/ruby/2.6.0/gems/wkhtmltopdf-heroku-2.12.6.1.pre.jammy/bin/wkhtmltopdf-linux-amd64'
+config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 # @@@@@@@@@@@@@@@@@@ CONST @@@@@@@@@@@@@@@@@@@
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
@@ -91,7 +92,7 @@ def full():
 
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
 
-    pdf = pdfkit.from_string(rendered_pdf, False)
+    pdf = pdfkit.from_string(rendered_pdf, False, configuration=config)
 
     # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
