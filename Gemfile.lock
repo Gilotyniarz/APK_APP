@@ -1,0 +1,16 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    wkhtmltopdf-heroku (2.12.6.1.pre.jammy)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  wkhtmltopdf-heroku (= 2.12.6.1.pre.jammy)
+
+RUBY VERSION
+   ruby 2.6.3p62
+
+BUNDLED WITH
+   1.17.2
