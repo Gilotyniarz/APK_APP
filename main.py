@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = SECRET_KEY
 # @@@@@@@@@@@@@@@@@@@@@@@@@@ MAIL @@@@@@@@@@@@@@@@@@@@@@@@
 app.config.update(dict(
-    DEBUG=True,
+    DEBUG=False,
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=587,
     MAIL_USE_TLS=True,
