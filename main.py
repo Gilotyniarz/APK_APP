@@ -93,7 +93,6 @@ def full():
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
     pdf = pdfkit.from_string(rendered_pdf, False, configuration=config)
 
-
     # @@@@@@@@@@@@@@@ SENDING MAIL TO AGENT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     msg_agent = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
                   recipients=[session.get("agent"), MY_EMAIL])
