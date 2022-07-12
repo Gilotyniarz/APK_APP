@@ -91,17 +91,20 @@ def full():
     # @@@@@@@@@@@@@@@@ CONVERSING HTML TO PDF @@@@@@@@@@@@@@@@@
 
     rendered_pdf = render_template('messages/message_pdf.html', products=products)
-
     pdf = pdfkit.from_string(rendered_pdf, False, configuration=config)
 
-    # @@@@@@@@@@@@@@@ SENDING MAIL @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    msg = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
-                  recipients=[session.get("agent"), MY_EMAIL])
-    msg.html = render_template("messages/message.html", products=products)
-    # @@@@@@@@@@@@@@@ Adding Attachment pdf @@@@@@@@@@@@@@@@@@@@
-    msg.attach(f"{session['form_name']} {session['form_lastname']}-APK.pdf", "invoice/pdf", pdf)
-    mail.send(msg)
 
+    # @@@@@@@@@@@@@@@ SENDING MAIL TO AGENT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    msg_agent = Message(f'{session["form_name"]} {session["form_lastname"]} - APK', sender='APK - Podsumowanie',
+                  recipients=[session.get("agent"), MY_EMAIL])
+    msg_agent.html = render_template("messages/message.html", products=products)
+    msg_agent.attach(f"{session['form_name']} {session['form_lastname']}-APK.pdf", "invoice/pdf", pdf)
+    mail.send(msg_agent)
+    # @@@@@@@@@@@@@@@ SENDING MAIL TO CLIENT @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    msg_client = Message(f'Analiza Potrzeb Klienta - Insur Invest', sender='APK - Podsumowanie',
+                  recipients=[session.get("form_email"), MY_EMAIL])
+    msg_client.html = render_template("messages/message_client.html", products=products)
+    mail.send(msg_client)
     return render_template("index_4_win.html")
 
 
