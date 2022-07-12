@@ -460,7 +460,7 @@ table{
 
 </head>
 
-<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;">
+<body width="100%" style="margin: 0; padding: 0 ">
 <center style="width: 100%; background-color: #f1f1f1;">
     <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
         &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
@@ -491,12 +491,11 @@ table{
                         <tr>
                             <td>
                                 <div class="text" style="padding: 0 3em; text-align: center;width: 400px;">
-                                    <h2>{{session["form_name"]}} {{session["form_lastname"]}}</h2>
-                                    <h3>Analiza Potrzeb Klienta</h3>
+                                    <h3>{{session["form_name"]}} {{session["form_lastname"]}}</h3>
                                     <h3> {{session["form_email"]}}</h3>
                                 </div>
                                 <div style="padding: 0 3em; text-align: center; width: 400px;">
-                                    <h3> Uwagi klienta: {{session["form_message"]}}</h3>
+                                    <h3> Uwagi: {{session["form_message"]}}</h3>
                                 </div>
 
                             </td>
@@ -520,9 +519,9 @@ table{
             <tr>
                 <td class="bg_white">
                     {%for product in products%}
-            <tr style="border:1px solid black;">
+            <tr style="border:1px solid black; padding-left: 5px">
                 <td class="text-services">
-                    <h3> {{product.split("_")[0]}} {{product.split("_")[1]}}</h3>
+                    <h3>   {{product.split("_")[0]}} {{product.split("_")[1]}}</h3>
 
                 </td>
 
