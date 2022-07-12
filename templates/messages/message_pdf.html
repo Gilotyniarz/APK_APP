@@ -113,6 +113,7 @@ img.g-img + div {
 
 
 
+
     </style>
 
     <!-- CSS Reset : END -->
@@ -453,6 +454,7 @@ table{
 
 
 
+
     </style>
 
 
@@ -518,12 +520,10 @@ table{
             <tr>
                 <td class="bg_white">
                     {%for product in products%}
-
-
-            <tr>
+            <tr style="border:1px solid black;">
                 <td class="text-services">
-                    <h3>Rodzaj : {{product.split("_")[1]}}</h3>
-                    <p>Kategoria : {{product.split("_")[0]}}</p>
+                    <h3> {{product.split("_")[0]}} {{product.split("_")[1]}}</h3>
+
                 </td>
 
             </tr>
